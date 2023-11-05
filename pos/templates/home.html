@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block body %}
+<h3 class=" text-center m-4">All Products</h3>
+    <div class="row">
+        <div class="col-12">
+          {% if Products %}
+          <div class="card bg-secondary ms-4 me-4 mb-4">
+            <h5 class="card-header d-flex justify-content-between align-items-center">Title
+              <a class="btn btn-success me-1" href="{% url 'add_product' %}">
+                <i class="fa-solid fa-plus"></i>
+              </a>
+            </h5>
+            <div class="card-body">
+              <p class="card-text">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Sales</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for product in Products %}
+                      <tr>
+                          <th scope="row">{{ product.id}}</th>
+                          <td>{{ product.product_name }}</td>
+                          <td>{{ product.product_description }}</td>
+                          <td>{{ product.product_quantity }}</td>
+                          <td>₱{{ product.product_price }}</td>
+                          <td>{{ product.product_sales }}</td>
+
+                          <td>
+                            <a class="btn btn-warning me-1" href="{% url 'edit_product' product.id %}">
+                              <i class="fa-regular fa-pen-to-square fa-lg"></i>
+                            </a>
+
+                            <a class="btn btn-danger me-1" href="{% url 'delete_product' product.id %}">
+                              <i class="fa-solid fa-trash-can fa-lg"></i>
+                            </a>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table> 
+                </div>
+              </p>
+            </div>
+          </div>
+          {% else %}
+            <h5 class="alert alert-primary ms-4 me-4">No products</h5>
+          {% endif %}
+        </div>
+    </div>
+{% endblock %}
